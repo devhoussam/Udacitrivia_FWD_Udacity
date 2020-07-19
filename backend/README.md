@@ -61,6 +61,7 @@ E.G: `FLASK_CONFIG = 'development'`
 E.g.: `SECRET_KEY = 'yoursecretkeyhere...'.
 - `PROD_DATABASE_URI`, `DEV_DATABASE_URI`, and `TEST_DATABASE_URI`: Set the database uri for SQLAlchemy for the different configuration classes  
 
+```
 # Production DB URI
 PROD_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/trivia'
 # development DB URI 
