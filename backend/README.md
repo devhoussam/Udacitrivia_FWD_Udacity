@@ -38,10 +38,36 @@ This will install all the required packages we selected within the `requirements
 
 - [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) is the extension we'll use to handle cross origin requests from our frontend server. 
 
+## B. setting up 😉😉 
 
+Follow these setup instructions to get the project up and running
 
+### B.1. setting up the environment variables 🔥🔥
 
+Before running the project, you should set some environment variables, preferably in your ```.env``` file.
+Below are the environment variables for the project. You can put them in a `.env` file in the root of your virtual environment, or set the variables in the terminal as follows:
 
+```
+bash
+export FLASK_CONFIG=development
+```
+
+- `FLASK_CONFIG`: Specifies a configuration class for the app. possible choices are development, testing, or production. If not set, the app will run in the development environment by default.  
+E.G: `FLASK_CONFIG = 'development'`
+    - `development`: Start the app in the development environment. `FLASK_ENV` will be set to `development`. which detects file changes and restarts the server automatically.
+    - `testing`: Same as development, but with `testing` set to `True`. This helps in automated testing.
+    - `production`: Start the app in the production environment, with `FLASK_ENV` set to `production`, and `debug` and `testing` set to `False`.
+- `SECRET_KEY`: Set your secret_key which is your data's encryption key. This key should be random. Ideally, you shouldn't even know what it is.  
+E.g.: `SECRET_KEY = 'yoursecretkeyhere...'.
+- `PROD_DATABASE_URI`, `DEV_DATABASE_URI`, and `TEST_DATABASE_URI`: Set the database uri for SQLAlchemy for the different configuration classes  
+
+# Production DB URI
+PROD_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/trivia'
+# development DB URI 
+DEV_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/trivia_dev'
+# testing DB URI
+TEST_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/trivia_test'
+```
 
 
 
