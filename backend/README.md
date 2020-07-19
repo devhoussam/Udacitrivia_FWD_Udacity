@@ -99,17 +99,185 @@ python wsgi.py
 
 ## C. API Reference 😉😉
 
+### C.1. General 🔥🔥
 
+- Base URL: this app is hosted locally under the port 5000. The API base URL is `http://localhost:5000/api/v1`
+- Authentication: this app doesn't require any authentication or API tokens.
+- You must set the header: `Content-Type: application/json` with every request.
 
+### C.2. Error Handlers 🔥🔥
 
+if any errors accured, the API will return a json object in the following format:
 
+```
+{
+    "success": False,
+    "error": 404,
+    "message": "resource not found"
+}
+```
 
+The following errors will be reported:
 
+- 400: `bad request`
+- 404: `resource not found`
+- 405: `method not allowed`
+- 422: `unprocessible`
 
+* GET "/categories"
+    - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
+    - Request Parameters: None
+    - Response Body:
+    
+    `categories`: Dictionary of *Category ID* <-> *Category Type*
+```json
+{
+  "categories": {
+    "1": "Science",
+    "2": "Art"
+  } 
+}
+```
 
+* GET "/questions?page=1"
+    - Fetches the questions to be displayed on the page using page number
+    - Request Parameters: `page`: Page number
+    - Response Body:
 
+    `questions`: List of questions
 
+    `categories`: Dictionary of *Category ID* <-> *Category Type*
 
+    `total_questions`: Total number of  questions
+```json
+{
+  "questions": [{
+    "id": 1,
+    "question": "",
+    "answer": "",
+    "category": 1,
+    "difficulty": 1
+  }],
+  "categories": {
+    "1": "Science",
+    "2": "Art"
+  },
+  "total_questions": 1
+}
+```
 
+* DELETE "/questions/<int:question_id>"
+    - Deletes a question from the database
+    - Request Parameters: `question_id`: Question ID to delete
+    - Response Body:
 
+    `deleted`: Question ID that is deleted
+```json
+{
+  "deleted": 20
+}
+```
 
+* POST "/questions"
+    - Adds a questions to the database
+    - Request Body:
+    
+    `question`: Question statement
+    
+    `answer`: Answer statement
+    
+    `category`: Category ID
+    
+    `difficulty`: Difficulty Level
+    - Response Body:
+    
+    `question`: Question object that is created
+```json
+{
+  "question": {
+    "id": 1,
+    "question": "",
+    "answer": "",
+    "category": 1,
+    "difficulty": 1
+  }
+}
+```
+
+* POST "/search"
+    - Fetches questions based on the search term
+    - Request Body:
+    
+    `searchTerm`: Search term
+    - Response Body:
+    
+    `questions`: List of questions found in search
+    
+    `total_questions`: Total number of  questions
+```json
+{
+  "questions": [{
+    "id": 1,
+    "question": "",
+    "answer": "",
+    "category": 1,
+    "difficulty": 1
+  }],
+  "total_questions": 1
+}
+```
+
+* GET "/categories/<int:category_id>/questions"
+    - Fetches questions for the requested category
+    - Request Parameters: `category_id`: Category ID for questions
+    - Response Body:
+
+    `questions`: List of category questions
+
+    `total_questions`: Total number of  questions
+    
+    `current_category`: Current category ID
+```json
+{
+  "questions": [{
+    "id": 1,
+    "question": "",
+    "answer": "",
+    "category": 1,
+    "difficulty": 1
+  }],
+  "total_questions": 1,
+  "current_category": 1
+}
+```
+
+* POST "/quizzes"
+    - Fetches a unique question for the quiz on selected category
+    - Request Body:
+    
+    `previous_questions`: List of previously answered questions
+
+    `quiz_category`: Category object of the quiz
+    - Response Body:
+    
+    `question`: Random question of requested category
+```json
+{
+  "question": {
+    "id": 1,
+    "question": "",
+    "answer": "",
+    "category": 1,
+    "difficulty": 1
+  }
+}
+```
+
+## C. Testing 😉😉
+
+The app uses `unittest` for testing all functionalities. Create a testing database and store the URI in the `TEST_DATABASE_URI` environment.
+To run the tests, run
+```bash
+python -m unittest discover -t ../
+```
+_NOTE_: Make sure you create a database named `trivia` in the PostgreSQL server before running the tests.
