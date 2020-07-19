@@ -70,15 +70,21 @@ DEV_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/trivia_dev'
 TEST_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/trivia_test'
 ```
 
-### B.1.2. Database Setup 🔥🔥
+### B.1.2. Database Setup (_Important_) 🔥🔥
 
-With Postgres running and our trivia database created, restore a database using the trivia.psql file provided. From the backend folder in terminal run:
-```
-bash
-psql trivia_dev < trivia.psql
+Install and setup "PostgreSQL" on the system and create a database named `trivia` in the Postgres server.
+```bash
+createdb trivia
 ```
 
-notice that I've used the `trivia_dev` database, as I want to run the app in the development environment. For more information, checkout the [PostgreSQL Docs](https://www.postgresql.org/docs/9.1/backup-dump.html)
+Instructions (macOS): https://www.codementor.io/engineerapart/getting-started-with-postgresql-on-mac-osx-are8jcopb
+
+With Postgres running, restore a database using the trivia.psql file provided. From the backend folder in terminal run:
+```bash
+cd database
+psql trivia < database/trivia.psql
+```
+
 
 ### B.1.3. Running the server 🔥🔥
 
