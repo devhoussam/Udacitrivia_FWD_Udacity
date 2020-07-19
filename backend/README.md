@@ -70,5 +70,41 @@ DEV_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/trivia_dev'
 TEST_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/trivia_test'
 ```
 
+### B.2.1. Database Setup 🔥🔥
+
+With Postgres running and our trivia database created, restore a database using the trivia.psql file provided. From the backend folder in terminal run:
+```
+bash
+psql trivia_dev < trivia.psql
+```
+
+notice that I've used the `trivia_dev` database, as I want to run the app in the development environment. For more information, checkout the [PostgreSQL Docs](https://www.postgresql.org/docs/9.1/backup-dump.html)
+
+### B.2.3. Running the server 🔥🔥
+
+From within the `backend` directory first ensure you are working using your created virtual environment.
+
+To run the server, execute:
+
+```
+bash
+python wsgi.py
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
