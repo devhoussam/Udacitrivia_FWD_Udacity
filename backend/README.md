@@ -273,7 +273,7 @@ The following errors will be reported:
 }
 ```
 
-## C. Testing 😉😉
+## D. Testing 😉😉
 
 The app uses `unittest` for testing all functionalities. Create a testing database and store the URI in the `TEST_DATABASE_URI` environment.
 To run the tests, run
