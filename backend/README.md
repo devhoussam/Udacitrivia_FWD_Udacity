@@ -18,5 +18,30 @@ also, checkout [pipenv](https://pypi.org/project/pipenv/), as it's a great packa
 
 Once you have your virtual environment setup and running, install dependencies by navigating to the `/backend` directory and running:
 
+```
+bash
+pip install -r requirements.txt
+```
+or
+```
+bash
+pipenv install -r requirements.txt
+```
+
+This will install all the required packages we selected within the `requirements.txt` file.
+
+#### A.1.4. Project Key Dependencies 👨‍💻👨‍💻
+
+- [Flask](http://flask.pocoo.org/)  is a lightweight backend microservices framework. Flask is required to handle requests and responses.
+
+- [SQLAlchemy](https://www.sqlalchemy.org/) is the Python SQL toolkit and ORM we'll use handle the lightweight sqlite database. You'll primarily work in app.py and can reference models.py. 
+
+- [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) is the extension we'll use to handle cross origin requests from our frontend server. 
+
+
+
+
+
+
 
 
