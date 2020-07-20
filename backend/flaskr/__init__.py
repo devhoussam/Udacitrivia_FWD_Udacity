@@ -133,10 +133,10 @@ def paginate_q(request, questions):
     # category to be shown.
     # ----------------------------------------------------------------------------#
 
-    @app.route("/categories/<int:cat_id>/questions", methods=["GET"])
-    def get_questions_id(cat_id):
+    @app.route("/categories/<int:category_id>/questions", methods=["GET"])
+    def get_questions_id(category_id):
         try:
-            questions = Question.query.filter(Question.category == cat_id).all()
+            questions = Question.query.filter(Question.category == category_id).all()
             current_q = [question.format() for question in questions]
 
             if len(current_q) == 0:
@@ -147,7 +147,7 @@ def paginate_q(request, questions):
                     "success": True,
                     "questions": current_q,
                     "total_questions": len(current_q),
-                    "current_category": cat_id,
+                    "current_category": category_id,
                 }
             )
 
@@ -236,13 +236,13 @@ def paginate_q(request, questions):
         try:
             body = request.get_json()
 
-            new_question = body.get("question")
+            new_q = body.get("question")
             new_answer = body.get("answer")
             new_difficulty = body.get("difficulty")
             new_category = body.get("category")
 
             question = Question(
-                question=new_question,
+                question=new_q,
                 answer=new_answer,
                 difficulty=new_difficulty,
                 category=new_category,
@@ -268,34 +268,34 @@ def paginate_q(request, questions):
     # ----------------------------------------------------------------------------#
 
     @app.route("/quizzes", methods=["POST"])
-    def quiz_questions():
+    def get_quiz_questions():
         try:
             body = request.get_json()
 
-            prev_questions = body.get("previous_questions")
-            num_prev_questions = len(prev_questions)
-            quiz_category = body.get("quiz_category")
+            prv_q = body.get("previous_questions")
+            prev_number_questions = len(prv_q)
+            quiz_caty = body.get("quiz_caty")
 
-            cat_id = quiz_category["id"]
+            category_id = quiz_caty["id"]
             output = {}
 
-            if cat_id == 0:
+            if category_id == 0:
                 questions = Question.query.filter(
-                    Question.id.notin_(prev_questions)
+                    Question.id.notin_(prv_q)
                 ).all()
 
             else:
                 questions = (
-                    Question.query.filter(Question.category == cat_id)
-                    .filter(Question.id.notin_(prev_questions))
+                    Question.query.filter(Question.category == category_id)
+                    .filter(Question.id.notin_(prv_q))
                     .all()
                 )
 
             if len(questions) > 0:
-                new_question = questions[random.randrange(0, len(questions))].format()
-                output["question"] = new_question["question"]
-                output["answer"] = new_question["answer"]
-                output["id"] = new_question["id"]
+                new_q = questions[random.randrange(0, len(questions))].format()
+                output["question"] = new_q["question"]
+                output["answer"] = new_q["answer"]
+                output["id"] = new_q["id"]
 
                 return jsonify({"success": True, "question": output})
 
