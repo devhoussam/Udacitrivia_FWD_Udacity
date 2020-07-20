@@ -268,7 +268,7 @@ def paginate_q(request, questions):
     # ----------------------------------------------------------------------------#
 
     @app.route("/quizzes", methods=["POST"])
-    def quiz_questions():
+    def get_quiz_questions():
         try:
 		
             data = request.get_json()
