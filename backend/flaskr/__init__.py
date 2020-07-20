@@ -272,8 +272,8 @@ def paginate_q(request, questions):
         try:
             body = request.get_json()
 
-            prv_q = body.get("previous_questions")
-            prev_number_questions = len(prv_q)
+            prev_q = body.get("previous_questions")
+            prev_number_questions = len(prev_q)
             quiz_caty = body.get("quiz_caty")
 
             category_id = quiz_caty["id"]
@@ -281,13 +281,13 @@ def paginate_q(request, questions):
 
             if category_id == 0:
                 questions = Question.query.filter(
-                    Question.id.notin_(prv_q)
+                    Question.id.notin_(prev_q)
                 ).all()
 
             else:
                 questions = (
                     Question.query.filter(Question.category == category_id)
-                    .filter(Question.id.notin_(prv_q))
+                    .filter(Question.id.notin_(prev_q))
                     .all()
                 )
 
