@@ -52,13 +52,13 @@ def create_app(test_config=None):
     @app.route("/categories", methods=["GET"])
     def get_categories():
         try:
-            all_categories = Category.query.order_by(Category.id).all()
+            all_cat = Category.query.order_by(Category.id).all()
 
             categories = {}
-            for category in all_categories:
+            for category in all_cat:
                 categories[category.id] = category.type
 
-            if len(all_categories) == 0:
+            if len(all_cat) == 0:
                 abort(404)
 
             return jsonify({"success": True, "categories": categories})
@@ -81,40 +81,40 @@ def create_app(test_config=None):
     # ----------------------------------------------------------------------------#
 
 
-def paginate_questions(request, questions):
+def paginate_q(request, questions):
     page = request.args.get("page", 1, type=int)
 
-    paginated = questions.paginate(
+    q_paginated = questions.paginate(
         page=page,
         per_page=QUESTIONS_PER_PAGE,
         error_out=True,
         max_per_page=QUESTIONS_PER_PAGE,
     )
 
-    current_questions = [question.format() for question in paginated.items]
+    current_q = [question.format() for question in q_paginated.items]
 
-    return current_questions
+    return current_q
 
     @app.route("/questions", methods=["GET"])
     def get_questions():
         try:
 
             questions = Question.query.order_by(Question.id)
-            current_questions = paginate_questions(request, questions)
+            current_q = paginate_q(request, questions)
 
-            all_categories = Category.query.order_by(Category.id).all()
+            all_cat = Category.query.order_by(Category.id).all()
 
             categories = {}
-            for category in all_categories:
+            for category in all_cat:
                 categories[category.id] = category.type
 
-            if len(current_questions) == 0 or len(all_categories) == 0:
+            if len(current_q) == 0 or len(all_cat) == 0:
                 abort(404)
 
             return jsonify(
                 {
                     "success": True,
-                    "questions": current_questions,
+                    "questions": current_q,
                     "total_questions": len(questions.all()),
                     "categories": categories,
                     "current_category": None,
@@ -137,16 +137,16 @@ def paginate_questions(request, questions):
     def get_questions_id(cat_id):
         try:
             questions = Question.query.filter(Question.category == cat_id).all()
-            current_questions = [question.format() for question in questions]
+            current_q = [question.format() for question in questions]
 
-            if len(current_questions) == 0:
+            if len(current_q) == 0:
                 abort(404)
 
             return jsonify(
                 {
                     "success": True,
-                    "questions": current_questions,
-                    "total_questions": len(current_questions),
+                    "questions": current_q,
+                    "total_questions": len(current_q),
                     "current_category": cat_id,
                 }
             )
@@ -178,16 +178,16 @@ def paginate_questions(request, questions):
                 )
             )
 
-            current_questions = [question.format() for question in questions]
+            current_q = [question.format() for question in questions]
 
-            if len(current_questions) == 0:
+            if len(current_q) == 0:
                 abort(404)
 
             return jsonify(
                 {
                     "success": True,
-                    "questions": current_questions,
-                    "total_questions": len(current_questions),
+                    "questions": current_q,
+                    "total_questions": len(current_q),
                     "current_category": None,
                 }
             )
