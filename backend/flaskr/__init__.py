@@ -270,11 +270,11 @@ def paginate_q(request, questions):
     @app.route("/quizzes", methods=["POST"])
     def get_quiz_questions():
         try:
-            body = request.get_json()
-
-            prev_q = body.get("previous_questions")
+		
+            data = request.get_json()
+			prev_q = data.get("previous_questions", [])
             prev_number_questions = len(prev_q)
-            quiz_caty = body.get("quiz_caty")
+            quiz_caty = data.get("quiz_caty", None)
 
             category_id = quiz_caty["id"]
             output = {}
